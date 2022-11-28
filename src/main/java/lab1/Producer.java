@@ -3,12 +3,9 @@ package lab1;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-@JsonDeserialize(builder = Producer.ProducerBuilder.class)
-public class Producer {
+public class Producer implements Comparable<Producer> {
 
     private String name;
     private String address;
@@ -76,7 +73,88 @@ public class Producer {
         return products;
     }
 
-    @JsonPOJOBuilder(buildMethodName = "build", withPrefix = "set")
+
+    /**
+     * Return producer's product with specified name
+     *
+     * @param name products name
+     * @return list of producer's products with specified name
+     */
+    public List<Product> getProductsByNameStream(String name) {
+        return products.stream().filter(product -> Objects.equals(product.getName(), name)).toList();
+    }
+
+    public List<Product> getProductsByName(String name) {
+        List<Product> result = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                result.add(product);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return producer's product with specified category
+     *
+     * @param category products category
+     * @return list of producer's product with specified category
+     */
+    public List<Product> getProductsByCategoryStream(String category) {
+        return products.stream().filter(product -> Objects.equals(product.getCategory(), category)).toList();
+    }
+
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> result = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getCategory().equals(category)) {
+                result.add(product);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return producer's product with specified id
+     *
+     * @param id product id
+     * @return product with specified id
+     */
+    public Product getProductsByIdStream(int id) {
+        return products.stream().filter(product -> Objects.equals(product.getId(), id)).findFirst().get();
+    }
+
+    public Product getProductsById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void sortProductsById() {
+        products.sort(new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                if (o1.getId() < o2.getId())
+                    return -1;
+                else if (o1.getId() == o2.getId())
+                    return 0;
+                return 1;
+            }
+        });
+    }
+
+    public void sortProductsByPrice() {
+        products.sort(Comparator.comparing(Product::getPrice));
+    }
+
+    @Override
+    public int compareTo(Producer o) {
+        return (this.name + this.address).compareTo(o.name + o.address);
+    }
+
     public static class ProducerBuilder {
         private String name;
         private String address;

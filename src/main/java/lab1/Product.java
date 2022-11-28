@@ -3,7 +3,6 @@ package lab1;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-@JsonDeserialize(builder = Product.ProductBuilder.class)
 public class Product {
     private int id;
     private String name;
