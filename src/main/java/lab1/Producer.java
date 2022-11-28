@@ -21,46 +21,55 @@ public class Producer {
     }
 
     /**
-     * Set producer address
-     *
-     * @param address producer address
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-
-    /**
      * Set producer name
-     *
-     * @param name producer name
+     * @param name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return producer address
+     * Set producer address
+     * @param address
      */
-    public String getAddress() {
-        return address;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * Add producer product
+     * @param product
+     */
     public void addProduct(Product product) {
         products.add(product);
     }
 
+    /**
+     * Add producer products
+     * @param products
+     */
     public void addProducts(List<Product> products) {
         this.products.addAll(products);
     }
 
     /**
+     * Get producer name
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Get producer address
+     * @return
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
      * Get all products from producer's product list
-     *
      * @return list of products
      */
     public List<Product> getProducts() {
