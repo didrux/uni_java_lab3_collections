@@ -115,7 +115,7 @@ public class Producer implements Comparable<Producer> {
     }
 
     /**
-     * Return producer's product with specified id
+     * Return producer's product with specified id by STREAM API
      *
      * @param id product id
      * @return product with specified id
@@ -133,6 +133,10 @@ public class Producer implements Comparable<Producer> {
         return null;
     }
 
+
+    /**
+     * Use comparator to sort Products by id
+     */
     public void sortProductsById() {
         products.sort(new Comparator<Product>() {
             @Override
@@ -153,6 +157,14 @@ public class Producer implements Comparable<Producer> {
     @Override
     public int compareTo(Producer o) {
         return (this.name + this.address).compareTo(o.name + o.address);
+    }
+
+
+    /**
+     * Use comparator to sort Products by Name
+     */
+    public void sortProductsByName() {
+        products.sort(Comparator.comparing(Product::getName));
     }
 
     public static class ProducerBuilder {
